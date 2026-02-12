@@ -1,23 +1,28 @@
-import Link from 'next/link';
+'use client';
 
-const links = [
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/work-orders/new', label: 'New Work Order' },
-  { href: '/work-orders/wo-1', label: 'Work Order Details' },
-  { href: '/status-board', label: 'Status Board' },
-  { href: '/inventory', label: 'Inventory' },
-  { href: '/settings', label: 'Settings' },
-  { href: '/reports', label: 'Reports' }
+import Link from 'next/link';
+import { tr } from '@/lib/i18n';
+import { useLanguage } from './language-provider';
+
+const links: Array<{ href: string; key: 'dashboard' | 'newWorkOrder' | 'statusBoard' | 'inventory' | 'settings' | 'reports' }> = [
+  { href: '/dashboard', key: 'dashboard' },
+  { href: '/work-orders/new', key: 'newWorkOrder' },
+  { href: '/status-board', key: 'statusBoard' },
+  { href: '/inventory', key: 'inventory' },
+  { href: '/settings', key: 'settings' },
+  { href: '/reports', key: 'reports' }
 ];
 
 export function NavCards() {
+  const { lang } = useLanguage();
+
   return (
-    <section className="card">
-      <h2>الوصول السريع</h2>
+    <section className="card modern-card">
+      <h2>{tr(lang, 'quickAccess')}</h2>
       <div className="grid cols-3">
         {links.map((item) => (
           <Link className="quick-link" key={item.href} href={item.href}>
-            {item.label}
+            {tr(lang, item.key)}
           </Link>
         ))}
       </div>
